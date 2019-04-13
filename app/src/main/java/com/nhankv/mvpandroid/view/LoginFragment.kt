@@ -34,21 +34,9 @@ class LoginFragment : Fragment(), LoginView {
             login()
         }
 
-//        edUser.setOnFocusChangeListener { v, hasFocus ->
-//            if (!hasFocus) {
-//                hideKeyboard(v)
-//            }
-//        }
-
         viewParent.setOnClickListener { v ->
             hideKeyboard(v)
         }
-
-//        edPass.setOnFocusChangeListener{ v, hasFocus ->
-//            if (!hasFocus) {
-//                hideKeyboard(v)
-//            }
-//        }
     }
 
     private fun login() {
