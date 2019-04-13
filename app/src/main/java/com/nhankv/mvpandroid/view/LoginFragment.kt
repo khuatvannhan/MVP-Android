@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.nhankv.mvpandroid.R
 import com.nhankv.mvpandroid.model.LoginInteractorImpl
 import com.nhankv.mvpandroid.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.fragment_login.*
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
 
 class LoginFragment : Fragment(), LoginView {
     private val TAG = javaClass.name
@@ -19,7 +20,7 @@ class LoginFragment : Fragment(), LoginView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(com.nhankv.mvpandroid.R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,6 +33,22 @@ class LoginFragment : Fragment(), LoginView {
         btLogin.setOnClickListener {
             login()
         }
+
+//        edUser.setOnFocusChangeListener { v, hasFocus ->
+//            if (!hasFocus) {
+//                hideKeyboard(v)
+//            }
+//        }
+
+        viewParent.setOnClickListener { v ->
+            hideKeyboard(v)
+        }
+
+//        edPass.setOnFocusChangeListener{ v, hasFocus ->
+//            if (!hasFocus) {
+//                hideKeyboard(v)
+//            }
+//        }
     }
 
     private fun login() {
@@ -57,6 +74,11 @@ class LoginFragment : Fragment(), LoginView {
     @SuppressLint("ShowToast")
     private fun showToast(message: String, type: Int) {
         Toast.makeText(context, message, type).show()
+    }
+
+    fun hideKeyboard(view: View) {
+        val inputMethodManager = activity!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+        inputMethodManager!!.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onDestroy() {
